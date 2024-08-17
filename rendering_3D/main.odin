@@ -18,6 +18,7 @@ main :: proc() {
 	v2 := Vector3{f32(0), f32(5), f32(0)}
 	v3 := Vector3{f32(-2), f32(0), f32(5)}
 
+
 	randPosX: i32
 	randPosY: i32
 
@@ -37,6 +38,8 @@ main :: proc() {
 		.PERSPECTIVE,
 	}
 
+	cube := rl.LoadModel("./cube.obj")
+
 	for !rl.WindowShouldClose() {
 		maxX = rl.GetRenderWidth() / 2
 		maxY = rl.GetRenderHeight() / 2
@@ -47,6 +50,7 @@ main :: proc() {
 
 		{ 	// 3D
 			rl.BeginMode3D(camera)
+			rl.DrawModel(cube, v1, 1, rl.WHITE)
 			rl.DrawTriangle3D(v1, v2, v3, MY_GREEN)
 			rl.DrawGrid(100, 10)
 			rl.EndMode3D()
