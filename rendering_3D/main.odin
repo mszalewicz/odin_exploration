@@ -39,6 +39,8 @@ main :: proc() {
 	}
 
 	cube := rl.LoadModel("./cube.obj")
+	mtx := rl.MatrixScale(2, 2, 2)
+	cube.transform = cube.transform * mtx
 
 	for !rl.WindowShouldClose() {
 		maxX = rl.GetRenderWidth() / 2
