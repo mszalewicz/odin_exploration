@@ -9,26 +9,25 @@ import rl "vendor:raylib"
 Color :: rl.Color
 Vector3 :: rl.Vector3
 
-MY_GREEN :: Color{100, 196, 166, 255}
+MY_GREEN  :: Color{100, 196, 166, 255}
 MY_PURPLE :: Color{161, 100, 196, 255}
-MY_BEIGE :: Color{247, 239, 229, 255}
+MY_BEIGE  :: Color{247, 239, 229, 255}
 
 main :: proc() {
 	v1 := Vector3{f32(5), f32(0), f32(0)}
 	v2 := Vector3{f32(0), f32(5), f32(0)}
 	v3 := Vector3{f32(-2), f32(0), f32(5)}
 
-
 	randPosX: i32
 	randPosY: i32
 
-	maxX: i32 = 1680
-	maxY: i32 = 1050
+	maxX: i32 = 1680 / 2
+	maxY: i32 = 1050 / 2
 
 	rl.SetConfigFlags(
 		{.BORDERLESS_WINDOWED_MODE, .WINDOW_MAXIMIZED, .WINDOW_HIGHDPI, .WINDOW_RESIZABLE},
 	)
-	rl.SetTargetFPS(120)
+	rl.SetTargetFPS(60)
 	rl.InitWindow(maxX, maxY, "test")
 	camera := rl.Camera3D {
 		Vector3{10, 10, 10},
@@ -38,6 +37,8 @@ main :: proc() {
 		.PERSPECTIVE,
 	}
 
+	// test()
+
 	cube := rl.LoadModel("./cube.obj")
 	mtx := rl.MatrixScale(2, 2, 2)
 	cube.transform = cube.transform * mtx
@@ -46,19 +47,32 @@ main :: proc() {
 		maxX = rl.GetRenderWidth() / 2
 		maxY = rl.GetRenderHeight() / 2
 
-		rl.UpdateCamera(&camera, .FREE)
+		rl.UpdateCamera(&camera, .CUSTOM)
 		rl.BeginDrawing()
 		rl.ClearBackground(rl.BLACK)
+
 
 		{ 	// 3D
 			rl.BeginMode3D(camera)
 			rl.DrawModel(cube, v1, 1, rl.WHITE)
 			rl.DrawTriangle3D(v1, v2, v3, MY_GREEN)
-			rl.DrawGrid(100, 10)
+			rl.DrawGrid(100, 2)
 			rl.EndMode3D()
 		}
+
+		rl.DrawFPS(100, 100)
 
 		rl.EndDrawing()
 	}
 	rl.CloseWindow()
+}
+
+test :: proc() {
+	x := 1i
+	x = 2
+
+	fmt.printf(
+		"###################################################### %d ######################################################",
+		x,
+	)
 }

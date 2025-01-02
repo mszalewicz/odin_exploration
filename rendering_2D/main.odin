@@ -25,14 +25,14 @@ main :: proc() {
 	rl.InitWindow(maxX, maxY, "test")
 
 	for !rl.WindowShouldClose() {
-		time.sleep(time.Second / 60)
+		time.sleep(100 * time.Millisecond)
 		maxX = rl.GetRenderWidth() / 2
 		maxY = rl.GetRenderHeight() / 2
 
 		rl.BeginDrawing()
 		rl.ClearBackground(rl.BLACK)
 
-		for i in 0 ..< 1750 {
+		for i in 0 ..< 150 {
 			randPosX = rand.int31_max(maxX - 100 + 1)
 			randPosY = rand.int31_max(maxY - 100 + 1)
 
@@ -45,6 +45,7 @@ main :: proc() {
 				rl.DrawRectangle(randPosX, randPosY, 100, 100, MY_PURPLE)
 			}
 		}
+		rl.DrawFPS(100, 100)
 		rl.EndDrawing()
 	}
 	rl.CloseWindow()
